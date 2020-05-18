@@ -1,0 +1,7 @@
+*.pyc
+*.ma
+*.mb
+__pycache__
+.vscode
+.pytest_cache
+legacyRig
