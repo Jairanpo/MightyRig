@@ -5,6 +5,7 @@ from graph.hierarchy import Graph
 
 
 def fill(graph=None, spine=3):
+    #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
     """Create spine graph configuration.
 
     Arguments:
@@ -17,6 +18,7 @@ def fill(graph=None, spine=3):
         ValueError: graph parameter should be an instance of the Graph Class.
         ValueError: spine parameter should be between 2 and 9.
     """
+    #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
 
     if graph is None:
         raise ValueError("graph parameter should be a Graph instance")

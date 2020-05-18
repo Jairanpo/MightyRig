@@ -32,6 +32,12 @@ class Graph:
         else:
             return self.vertices[vertex_name]
 
+    def get_children(self, vertex_name):
+        if vertex_name not in self.vertices.keys():
+            raise ValueError("Vertex name not in graph")
+        else:
+            return self.get_vertex(vertex_name).children
+
     def add_edge(self, parent, child):
         if parent in self.vertices.keys() and child in self.vertices.keys():
             self.vertices[parent].add_child(child)
@@ -45,4 +51,22 @@ class Graph:
             for vertex in self.vertices.values():
                 result += str(vertex)
                 result += ",\n"
+        return result
+
+    def depth_first(self, start_vertex):
+        result = []
+        visited = {}
+
+        def recurse(vertex):
+            if not vertex:
+                return None
+
+            visited[vertex] = True
+            result.append(vertex)
+
+            for child_name in self.get_children(vertex):
+                if child_name is not None:
+                    recurse(child_name)
+
+        recurse(start_vertex)
         return result

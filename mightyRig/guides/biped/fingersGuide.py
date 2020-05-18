@@ -21,30 +21,35 @@ def fill(graph=None, side="left"):
     #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
 
     if graph is None:
-        raise ValueError("graph parameter should be an instance of a Graph")
+        raise ValueError(
+            "graph parameter should be an instance of a Graph")
     if side.lower() not in ["left", "right"]:
-        raise ValueError("side parameter should be \"right\" or \"left\"")
+        raise ValueError(
+            "side parameter should be \"right\" or \"left\"")
 
+    _side = "l_" if side == "left" else "r_"
+    _x_mirror = 1 if side == "left" else -1
     _json_path = os.path.abspath('.')
     _json_path = os.path.join(
-        _json_path, "mightyRig", "guides", "biped", "config", "leg.json")
+        _json_path,
+        "mightyRig",
+        "guides",
+        "biped",
+        "config",
+        "fingers.json")
     _config = None
 
     with open(_json_path, "r") as _data:
-        _config = json.load(_data)["leg"]
+        _config = json.load(_data)["fingers"]
 
-    x_offset = 1 if side == "left" else -1
-    _side = "l_" if side == "left" else "r_"
-
-    for key in _config.keys():
-        graph.add_vertex(
-            Vertex(_side + str(key), {
-                "position": [
-                    _config[key]["position"]["x"] + x_offset,
-                    _config[key]["position"]["y"],
-                    _config[key]["position"]["z"]
-                ]
-            }))
+    for key, values in _config.items():
+        graph.add_vertex(Vertex(_side + str(key), {
+            "position": [
+                values["position"]["x"] * _x_mirror,
+                values["position"]["y"],
+                values["position"]["z"],
+            ]
+        }))
 
     for key, values in _config.items():
         for value in values["children"]:

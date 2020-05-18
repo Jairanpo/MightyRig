@@ -7,6 +7,7 @@ import os
 
 
 def fill(graph=None, side="left"):
+    #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
     """Create leg graph configuration.
 
     Keyword Arguments:
@@ -17,6 +18,8 @@ def fill(graph=None, side="left"):
         ValueError: graph parameter should be an instance of the Graph class.
         ValueError: side parameter should be either  \"right\" or  \"left\".
     """
+    #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
+
     if graph is None:
         raise ValueError("graph parameter should be an instance of a Graph")
     if side.lower() not in ["left", "right"]:
