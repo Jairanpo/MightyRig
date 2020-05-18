@@ -1,0 +1,36 @@
+{
+  "arm":{
+    "clavicle":{
+      "position":{
+        "x":1,
+        "y":16,
+        "z":0
+      },
+      "children": []
+    },
+    "upperarm":{
+      "position":{
+        "x":2,
+        "y":17,
+        "z":0
+      },
+      "children": ["forearm"]
+    },
+    "forearm": {
+      "position": {
+        "x":5,
+        "y":17,
+        "z":0
+      },
+      "children": ["wrist"]
+    },
+    "wrist": {
+      "position": {
+        "x":8,
+        "y":17,
+        "z":0
+      },
+      "children": []
+    }
+  }
+}

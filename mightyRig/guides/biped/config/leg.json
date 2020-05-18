@@ -1,0 +1,55 @@
+{
+  "leg":{
+    "femur":{
+      "position":{
+      "x": 0,
+      "y": 9,
+      "z": 1
+      },
+      "children": ["tibia"]
+    },
+    "tibia": {
+      "position": {
+        "x": 0,
+        "y": 4.5,
+        "z": 0
+      },
+      "children": ["ankle"]
+    },
+    "ankle":
+    {
+      "position": {
+        "x": 0,
+        "y": 1,
+        "z": 0
+      },
+      "children":["ball"]
+    },
+    "ball":
+    {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 1
+      },
+      "children":["toes"]
+    },
+    "toes":
+    {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5
+      },
+      "children": ["tip"]
+    },
+    "tip":{
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 2
+      },
+      "children": []
+    }
+  }
+}
