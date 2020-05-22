@@ -18,7 +18,7 @@ add:
 	git add .
 
 run:
-	python mightyRig/mightyRig.py
+	python mightyRig.py
 
 clean:
 	find . -name "*.pyc" -type f -delete

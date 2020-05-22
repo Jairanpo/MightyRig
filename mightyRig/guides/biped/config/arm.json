@@ -3,7 +3,7 @@
     "clavicle":{
       "position":{
         "x":1,
-        "y":16,
+        "y":15.5,
         "z":0
       },
       "children": []
@@ -11,7 +11,7 @@
     "upperarm":{
       "position":{
         "x":2,
-        "y":17,
+        "y":16,
         "z":0
       },
       "children": ["forearm"]
@@ -19,15 +19,15 @@
     "forearm": {
       "position": {
         "x":5,
-        "y":17,
-        "z":0
+        "y":16,
+        "z":-0.25
       },
       "children": ["wrist"]
     },
     "wrist": {
       "position": {
         "x":8,
-        "y":17,
+        "y":16,
         "z":0
       },
       "children": []

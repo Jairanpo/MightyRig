@@ -14,6 +14,10 @@ class Vertex:
             self.children = (
                 [] if "children"
                 not in values.keys() else values["children"])
+            self.data = (
+                {} if "data"
+                not in values.keys() else values["data"]
+            )
 
     def __repr__(self):
         return str(self.as_dict)
@@ -36,6 +40,7 @@ class Vertex:
         result[self.key] = {}
         result[self.key]["position"] = self.position
         result[self.key]["children"] = self.children
+        result[self.key]["data"] = self.data
         return result
 
     @property
@@ -45,6 +50,25 @@ class Vertex:
     @key.setter
     def key(self, value):
         self._key = value
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, values_dictionary):
+        if isinstance(
+                values_dictionary, dict):
+            self._data = values_dictionary
+        else:
+            raise (
+                ValueError(
+                    '''Cannot assingn a 
+                    non dict type to 
+                    data property'''))
+
+    def add_data(self, key, value):
+        self.data[key] = value
 
     @property
     def children(self):

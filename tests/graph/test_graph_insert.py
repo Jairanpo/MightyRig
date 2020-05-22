@@ -23,7 +23,8 @@ class GraphInsertTests:
         assert graph.get_vertex("pelvis").as_dict == {
             "pelvis": {
                 "position": [0, 0, 0],
-                "children": []
+                "children": [],
+                "data": {}
             }
         }
 
@@ -60,13 +61,15 @@ class GraphInsertTests:
             and graph.get_vertex("vertex_01").as_dict == {
                 "vertex_01": {
                     "position": [0, 0, 0],
-                    "children": []
+                    "children": [],
+                    "data": {}
                 }
             }
             and graph.get_vertex("vertex_01").as_dict == {
                 "vertex_01": {
                     "position": [0, 0, 0],
-                    "children": []
+                    "children": [],
+                    "data": {}
                 }
             }
         )

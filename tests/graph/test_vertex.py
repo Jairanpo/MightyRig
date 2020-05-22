@@ -42,5 +42,6 @@ class VertexTests:
     def text_vertex_equality_dict(self):
         assert self.vtx.as_dict == {"pelvis": {
             "position": [0, 1, 0],
-            "children": ["spine_01", "spine_02"]
+            "children": ["spine_01", "spine_02"],
+            "data": {}
         }}

@@ -1,12 +1,13 @@
 import json
-from graph.hierarchy import Graph
-from graph.vertex import Vertex
+from mightyRig.graph.hierarchy import Graph
+from mightyRig.graph.vertex import Vertex
+import mightyRig.graph.utils as utils
 import os
 
 # ================================================================
 
 
-def fill(graph=None, side="left"):
+def fill(graph=None, parent=None, side="left"):
     #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
     """Create leg graph configuration.
 
@@ -20,36 +21,32 @@ def fill(graph=None, side="left"):
     """
     #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
 
-    if graph is None:
-        raise ValueError(
-            "graph parameter should be an instance of a Graph")
-    if side.lower() not in ["left", "right"]:
-        raise ValueError(
-            "side parameter should be \"right\" or \"left\"")
+    utils.validate_graph(graph)
+    utils.validate_vertex(parent)
 
     _side = "l_" if side == "left" else "r_"
     _x_mirror = 1 if side == "left" else -1
-    _json_path = os.path.abspath('.')
+
+    _json_path = os.path.dirname(__file__)
     _json_path = os.path.join(
-        _json_path,
-        "mightyRig",
-        "guides",
-        "biped",
-        "config",
-        "fingers.json")
+        _json_path, "config", "fingers.json")
     _config = None
 
     with open(_json_path, "r") as _data:
         _config = json.load(_data)["fingers"]
 
     for key, values in _config.items():
-        graph.add_vertex(Vertex(_side + str(key), {
+        _phalange = _side + str(key)
+        _thumb_modifier = 0 if "thumb" not in key else -0.5
+        graph.add_vertex(Vertex(_phalange, {
             "position": [
-                values["position"]["x"] * _x_mirror,
-                values["position"]["y"],
+                parent.position[0] + values["position"]["x"] * _x_mirror,
+                parent.position[1] + _thumb_modifier,
                 values["position"]["z"],
             ]
         }))
+        if key.endswith("_01"):
+            graph.add_edge(parent.key, _phalange)
 
     for key, values in _config.items():
         for value in values["children"]:

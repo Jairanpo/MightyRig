@@ -1,4 +1,6 @@
-from graph.vertex import Vertex
+from mightyRig.graph.vertex import Vertex
+
+# ================================================================
 
 
 class Graph:
@@ -39,7 +41,8 @@ class Graph:
             return self.get_vertex(vertex_name).children
 
     def add_edge(self, parent, child):
-        if parent in self.vertices.keys() and child in self.vertices.keys():
+        if (parent in self.vertices.keys()
+                and child in self.vertices.keys()):
             self.vertices[parent].add_child(child)
             return True
         else:

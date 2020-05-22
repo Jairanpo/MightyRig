@@ -1,6 +1,6 @@
 import json
-from graph.hierarchy import Graph
-from graph.vertex import Vertex
+from mightyRig.graph.hierarchy import Graph
+from mightyRig.graph.vertex import Vertex
 import os
 
 # ================================================================
@@ -27,9 +27,9 @@ def fill(graph=None, side="left"):
 
     _side = "l_" if side == "left" else "r_"
     _x_mirror = 1 if side == "left" else -1
-    _json_path = os.path.abspath('.')
+    _json_path = os.path.dirname(__file__)
     _json_path = os.path.join(
-        _json_path, "mightyRig", "guides", "biped", "config",  "arm.json")
+        _json_path, "config", "arm.json")
     _config = None
 
     with open(_json_path, "r") as _data:
