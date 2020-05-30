@@ -1,8 +1,8 @@
 from mightyRig.graph.vertex import Vertex
 from mightyRig.graph.hierarchy import Graph
-import mightyRig.graph.data.orientation as orientation
+
 import mightyRig.structure.biped.spine.headFeatures as headFeatures
-import mightyRig.structure.biped.config.utils as config
+import mightyRig.structure.biped.config as config
 
 # ================================================================
 
@@ -103,10 +103,7 @@ def insert(graph=None, spine=3, neck=2, length=4):
             "position": each[1]
         })
 
-        _vertex.add_data(
-            "orientation", orientation.compose())
-
-        config.add_data(_vertex, each[2])
+        _vertex.data = dict(each[2]["data"])
 
         graph.add_vertex(_vertex)
 

@@ -1,9 +1,9 @@
 import json
 from mightyRig.graph.hierarchy import Graph
 from mightyRig.graph.vertex import Vertex
-import mightyRig.graph.data.orientation as orientation
+
 import mightyRig.structure.biped.leg.footPivots as footPivots
-import mightyRig.structure.biped.config.utils as config
+import mightyRig.structure.biped.config as config
 import os
 
 # ================================================================
@@ -45,16 +45,16 @@ def insert(graph=None, side="left"):
             ]
         })
 
+        _vertex.data = dict(values["data"])
+
         if side == "left":
             _vertex.add_data(
-                "orientation",
-                orientation.compose())
+                "label",
+                "left_leg")
         else:
             _vertex.add_data(
-                "orientation",
-                orientation.compose(reverse=True))
-
-        config.add_data(_vertex, values)
+                "label",
+                "right_leg")
 
         graph.add_vertex(_vertex)
 

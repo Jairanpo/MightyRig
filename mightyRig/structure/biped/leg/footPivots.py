@@ -1,7 +1,7 @@
 from mightyRig.graph.hierarchy import Graph
 from mightyRig.graph.vertex import Vertex
 import mightyRig.graph.utils as utils
-import mightyRig.structure.biped.config.utils as config
+import mightyRig.structure.biped.config as config
 
 # ================================================================
 
@@ -30,7 +30,7 @@ def insert(graph=None, parent=None, side="left"):
             ]
         })
 
-        config.add_data(_vertex, _config["bank"])
+        _vertex.data = dict(_config["bank"]["data"])
 
         graph.add_vertex(_vertex)
 
@@ -48,7 +48,7 @@ def insert(graph=None, parent=None, side="left"):
         ]
     })
 
-    config.add_data(_heel_vertex, _config["heel"])
+    _heel_vertex.data = _config["heel"]["data"]
 
     graph.add_vertex(_heel_vertex)
     graph.add_edge(parent.key, heel)

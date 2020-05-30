@@ -1,7 +1,6 @@
 
 # Maya imports
-#import pymel.core as pm
-#import mightyRig.maya.joints.orientation as orientation
+import pymel.core as pm
 
 # ================================================================
 
@@ -40,10 +39,7 @@ class Spine:
 
     # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     # Maya functionality:
-
-    '''
     def create_joints(self):
-        print(self.spine)
         for name in self.spine:
             _joint_name = ""
             vertex = self.graph.get_vertex(name)
@@ -61,9 +57,9 @@ class Spine:
         self.orient_joints()
 
     def orient_joints(self):
-        print("creatingJoints")
-        for name in self.spine:
+        for name in self.spine[:-1]:
             vertex = self.graph.get_vertex(name)
+            print(vertex)
             pm.joint(
                 vertex.data["build"]["joint"],
                 edit=True,
@@ -71,4 +67,3 @@ class Spine:
                 secondaryAxisOrient=vertex.data["orientation"]["secondaryAxisOrient"],
                 children=False
             )
-    '''

@@ -5,6 +5,11 @@
         "label": "spine",
         "guide":{
           "controller_size":0.6
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -13,6 +18,11 @@
         "label": "spine",
         "guide":{
           "controller_size": 0.25
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -21,6 +31,11 @@
         "label": "spine",
         "guide":{
           "controller_size": 0.5
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -29,6 +44,11 @@
         "label": "spine",
         "guide":{
           "controller_size": 0.15
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -37,6 +57,11 @@
         "label": "spine",
         "guide":{
           "controller_size": 0.2
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     }

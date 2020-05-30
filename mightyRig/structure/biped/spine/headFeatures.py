@@ -2,7 +2,7 @@ import json
 from mightyRig.graph.hierarchy import Graph
 from mightyRig.graph.vertex import Vertex
 import mightyRig.graph.utils as utils
-import mightyRig.structure.biped.config.utils as config
+import mightyRig.structure.biped.config as config
 import os
 
 # ================================================================
@@ -38,7 +38,7 @@ def insert(graph=None, parent=None):
                 1
             ]})
 
-        config.add_data(_vertex, _config["eye"])
+        _vertex.data = dict(_config["eye"]["data"])
 
         graph.add_vertex(_vertex)
         graph.add_edge(parent.key, new_vertex_name)
@@ -52,7 +52,7 @@ def insert(graph=None, parent=None):
         ]
     })
 
-    config.add_data(_jaw_vertex, _config["jaw"])
+    _jaw_vertex.data = dict(_config["jaw"]["data"])
 
     graph.add_vertex(_jaw_vertex)
 

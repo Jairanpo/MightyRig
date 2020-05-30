@@ -10,6 +10,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -23,6 +28,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -36,6 +46,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -49,6 +64,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -62,6 +82,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -77,6 +102,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -90,6 +120,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -103,6 +138,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -116,6 +156,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -129,6 +174,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -144,6 +194,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -157,6 +212,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -170,6 +230,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -183,6 +248,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -196,6 +266,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -224,6 +299,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -237,6 +317,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -250,6 +335,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -263,6 +353,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -278,6 +373,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -291,6 +391,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -304,6 +409,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -317,6 +427,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -330,6 +445,11 @@
       "data":{
         "guide":{
           "controller_size":0.1
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     }

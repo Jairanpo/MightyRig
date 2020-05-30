@@ -10,6 +10,11 @@
       "data":{
         "guide":{
           "controller_size": 0.25
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -23,6 +28,11 @@
       "data":{
         "guide":{
           "controller_size":0.25
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -36,6 +46,11 @@
       "data":{
         "guide":{
           "controller_size": 0.25
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     },
@@ -49,6 +64,11 @@
       "data":{
         "guide":{
           "controller_size":0.2
+        },
+        "orientation":{
+          "orientJoint":"yxz",
+          "secondaryAxisOrient":"xup",
+          "children": false
         }
       }
     }
