@@ -1,0 +1,18 @@
+{
+  "face":{
+    "eye":{
+      "data":{
+        "guide":{
+          "controller_size": 0.15
+        }
+      }
+    }, 
+    "jaw":{
+      "data":{
+        "guide":{
+          "controller_size": 0.2
+        }
+      }
+    }
+  }
+}

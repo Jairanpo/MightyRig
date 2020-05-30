@@ -21,7 +21,8 @@ def set_joint_orientation(
                 children=False)
 
             each_joint.rotateOrder.set(0)
-        pm.makeIdentity(each_joint, apply=True, rotate=True)
+        pm.makeIdentity(
+            each_joint, apply=True, rotate=True)
 
 
 def orient_last_joint(list_of_joints):

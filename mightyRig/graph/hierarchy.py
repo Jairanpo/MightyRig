@@ -28,6 +28,12 @@ class Graph:
         else:
             return False
 
+    def get_vertices(self):
+        result = []
+        for each_name in self.vertices:
+            result.append(self.get_vertex(each_name))
+        return result
+
     def get_vertex(self, vertex_name):
         if vertex_name not in self.vertices.keys():
             raise ValueError("Vertex name not in graph")
@@ -70,6 +76,36 @@ class Graph:
             for child_name in self.get_children(vertex):
                 if child_name is not None:
                     recurse(child_name)
+
+        recurse(start_vertex)
+        return result
+
+    def traverse_label(self, start_vertex=None, label=None):
+        result = []
+        visited = {}
+
+        if start_vertex is None:
+            raise ValueError(
+                "You must specify a valid start_vertex string name")
+        if label is None:
+            raise ValueError("You must specify a valid label string name")
+
+        def recurse(vertex):
+            _vertex = self.get_vertex(vertex)
+
+            if not vertex:
+                return None
+            elif not "label" in _vertex.data.keys():
+                return None
+            elif not _vertex.data["label"] == label:
+                return None
+            else:
+                visited[vertex] = True
+                result.append(vertex)
+
+                for child_name in self.get_children(vertex):
+                    if child_name is not None:
+                        recurse(child_name)
 
         recurse(start_vertex)
         return result

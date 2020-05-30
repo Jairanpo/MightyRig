@@ -63,12 +63,45 @@ class Vertex:
         else:
             raise (
                 ValueError(
-                    '''Cannot assingn a 
-                    non dict type to 
+                    '''Cannot assingn a
+                    non dict type to
                     data property'''))
 
-    def add_data(self, key, value):
-        self.data[key] = value
+    def add_data(self, keys, value):
+        if isinstance(keys, str):
+            self.data[keys] = value
+        elif isinstance(keys, list):
+            if len(keys) == 1:
+                if keys[0] not in self.data.keys():
+                    self.data[keys[0]] = {}
+                self.data[keys[0]] = value
+
+            elif len(keys) == 2:
+                if keys[0] not in self.data.keys():
+                    self.data[keys[0]] = {}
+
+                if not isinstance(self.data[keys[0]], dict):
+                    raise ValueError(
+                        "self.data[{0}] its not a dictionary".format(keys[0]))
+                self.data[keys[0]][keys[1]] = value
+
+            elif len(keys) == 3:
+                if keys[0] not in self.data.keys():
+                    self.data[keys[0]] = {}
+
+                if keys[1] not in self.data.keys():
+                    self.data[keys[0]][keys[1]] = {}
+
+                if not isinstance(self.data[keys[0]], dict) \
+                        or not isinstance(self.data[keys[0]][keys[1]], dict):
+                    raise ValueError(
+                        "self.data[{0}] its not a dictionary".format(keys[0]))
+
+                self.data[keys[0]][keys[1]][keys[2]] = value
+
+            else:
+                raise ValueError(
+                    "You can only nest elements up to three levels")
 
     @property
     def children(self):

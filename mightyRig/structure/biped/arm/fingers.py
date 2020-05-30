@@ -1,13 +1,15 @@
 import json
 from mightyRig.graph.hierarchy import Graph
 from mightyRig.graph.vertex import Vertex
+import mightyRig.structure.biped.config.utils as config
+import mightyRig.graph.data.orientation as orientation
 import mightyRig.graph.utils as utils
 import os
 
 # ================================================================
 
 
-def fill(graph=None, parent=None, side="left"):
+def insert(graph=None, parent=None, side="left"):
     #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .  .
     """Create leg graph configuration.
 
@@ -27,24 +29,33 @@ def fill(graph=None, parent=None, side="left"):
     _side = "l_" if side == "left" else "r_"
     _x_mirror = 1 if side == "left" else -1
 
-    _json_path = os.path.dirname(__file__)
-    _json_path = os.path.join(
-        _json_path, "config", "fingers.json")
-    _config = None
-
-    with open(_json_path, "r") as _data:
-        _config = json.load(_data)["fingers"]
+    _config = config.load("fingers.json")["fingers"]
 
     for key, values in _config.items():
         _phalange = _side + str(key)
         _thumb_modifier = 0 if "thumb" not in key else -0.5
-        graph.add_vertex(Vertex(_phalange, {
+
+        _vertex = Vertex(_phalange, {
             "position": [
                 parent.position[0] + values["position"]["x"] * _x_mirror,
                 parent.position[1] + _thumb_modifier,
                 values["position"]["z"],
             ]
-        }))
+        })
+
+        if side == "left":
+            _vertex.add_data(
+                "orientation",
+                orientation.compose())
+        else:
+            _vertex.add_data(
+                "orientation",
+                orientation.compose(reverse=True))
+
+        config.add_data(_vertex, values)
+
+        graph.add_vertex(_vertex)
+
         if key.endswith("_01"):
             graph.add_edge(parent.key, _phalange)
 
