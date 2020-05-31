@@ -17,9 +17,15 @@ class RigOps(object):
             "skinCluster": "SKN"
         }
         self.prefix = {
-            "middle": "m",
-            "left": "l",
-            "right": "r"
+            "middle": "M",
+            "left": "L",
+            "right": "R"
+        }
+
+        self.color = {
+            "dark": (0.5, 0.5, 0.5),
+            "warning": (1, 0, 0),
+            "controller": (0.5, 0.5, 9)
         }
 
     # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -29,11 +35,16 @@ class RigOps(object):
         group = pm.group(
             name=name + "_" + self.nom["group"],
             empty=True)
+        group.setAttr("useOutlinerColor", 1)
+        group.setAttr("outlinerColor", self.color["dark"])
 
         locator = pm.spaceLocator(
             name=name + '_' + self.nom["locator"]
         )
         locator.getShape().setAttr("visibility", 0)
+
+        locator.setAttr("useOutlinerColor", 1)
+        locator.setAttr("outlinerColor", self.color["dark"])
 
         locator.setParent(group)
         group.setTranslation(

@@ -19,6 +19,7 @@ class Spine(rigOps.RigOps):
             self._pelvis,
             self._label
         )
+        self.m = self.prefix["middle"]
 
     @property
     def spine(self):
@@ -49,11 +50,16 @@ class Spine(rigOps.RigOps):
             vertex = self.graph.get_vertex(name)
 
             if name.endswith("_end"):
-                _joint_name = "m_{0}_{1}".format(name, self.nom["joint"])
+                _joint_name = \
+                    "{0}_{1}_{2}" \
+                    .format(self.m, name, self.nom["joint"])
             else:
-                _joint_name = "m_{0}_{1}".format(name, self.nom["bindJoint"])
+                _joint_name = \
+                    "{0}_{1}_{2}"\
+                    .format(self.m, name, self.nom["bindJoint"])
 
-            _joint = pm.joint(name=_joint_name, p=vertex.position)
+            _joint = pm.joint(
+                name=_joint_name, p=vertex.position)
 
             self._list_of_joints.append(_joint)
             vertex.add_data(["build", "joint"], _joint)
@@ -65,10 +71,12 @@ class Spine(rigOps.RigOps):
 
         #   .   .   .   .   .   .   .   .   .   .
 
-        spine_01_vertex = self.graph.get_vertex("spine_01")
+        spine_01_vertex = \
+            self.graph.get_vertex("spine_01")
+
         spine_offsets = self.create_offsets(
             spine_01_vertex.data["build"]["joint"],
-            "{0}_spine_01".format(self.prefix["middle"])
+            "{0}_spine_01".format(self.m)
         )
 
         #   .   .   .   .   .   .   .   .   .   .
@@ -76,7 +84,7 @@ class Spine(rigOps.RigOps):
         pelvis_vertex = self.graph.get_vertex("pelvis")
         pelvis_offsets = self.create_offsets(
             pelvis_vertex.data["build"]["joint"],
-            "{0}_pelvis".format(self.prefix["middle"])
+            "{0}_pelvis".format(self.m)
         )
 
     # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -84,16 +92,16 @@ class Spine(rigOps.RigOps):
     def orient_joints(self):
         for name in self.spine[:-1]:
             vertex = self.graph.get_vertex(name)
-            oj = \
-                vertex.data["orientation"]["orientJoint"]
-            sao = \
-                vertex.data["orientation"]["secondaryAxisOrient"]
-
+            _ori = "orientation"
+            _sec = "secondaryAxisOrient"
+            _oj = "orientJoint"
             pm.joint(
                 vertex.data["build"]["joint"],
                 edit=True,
-                orientJoint=oj,
-                secondaryAxisOrient=sao,
+                orientJoint=vertex.data[_ori][_oj],
+                secondaryAxisOrient=(
+                    vertex.data[_ori][_sec]
+                ),
                 children=False
             )
 
@@ -108,12 +116,12 @@ class Spine(rigOps.RigOps):
 
         _joint = pm.joint(
             name="{0}_COG_{1}".format(
-                self.prefix["middle"],
+                self.m,
                 self.nom["joint"]),
         )
         _offsets = self.create_offsets(
             _joint,
-            "m_COG"
+            "{0}_COG".format(self.m)
         )
         _offsets[0].setTranslation(
             _pelvis_joint
@@ -127,41 +135,66 @@ class Spine(rigOps.RigOps):
 
     def spine_ik(self):
         chest_jnt = self.graph \
-            .get_vertex("chest").data["build"]["joint"]
+            .get_vertex("chest")\
+            .data["build"]["joint"]
 
-        spine_ik_handle = self.ikHandle(
-            name="{0}_spine".format(self.prefix["middle"]),
+        _spine_ik_nodes = self.ikHandle(
+            name="{0}_spine".format(self.m),
             startJoint=self.graph.get_vertex(
                 "spine_01").data["build"]["joint"],
             endEffector=chest_jnt
         )
 
+        for node in _spine_ik_nodes:
+            node.setAttr("useOutlinerColor", 1)
+            node.setAttr(
+                "outlinerColor",
+                self.color["warning"]
+            )
+
         #   .   .   .   .   .   .   .   .   .   .
 
-        _ik_curve = spine_ik_handle[-1]
+        _ik_curve = _spine_ik_nodes[-1]
 
         _start_pos = _ik_curve.getPointAtParam(0)
-        _mid_pos = _ik_curve.getPointAtParam(_ik_curve.length()/2)
-        _end_pos = _ik_curve.getPointAtParam(_ik_curve.length())
+        _mid_pos = \
+            _ik_curve \
+            .getPointAtParam(_ik_curve.length()/2)
 
-        _start_joint = pm.joint(p=_start_pos)
+        _end_pos = \
+            _ik_curve\
+            .getPointAtParam(_ik_curve.length())
+
+        _start_joint = pm.joint(
+            name="{0}_iKCurve{1}_{2}".format(
+                self.m, "Start", self.nom["joint"]),
+            p=_start_pos
+        )
         self.create_offsets(
             _start_joint,
-            "{0}_iKCurveStart".format(self.prefix["middle"]))
+            "{0}_iKCurveStart".format(self.m))
 
-        _mid_joint = pm.joint(p=_mid_pos)
+        _mid_joint = pm.joint(
+            name="{0}_iKCurve{1}_{2}".format(
+                self.m, "Mid", self.nom["joint"]),
+            p=_mid_pos
+        )
         self.create_offsets(
             _mid_joint,
-            "{0}_iKCurveMid".format(self.prefix["middle"]))
+            "{0}_iKCurveMid".format(self.m))
 
-        _end_joint = pm.joint(p=_end_pos)
+        _end_joint = pm.joint(
+            name="{0}_iKCurve{1}_{2}".format(
+                self.m, "End", self.nom["joint"]),
+            p=_end_pos
+        )
         self.create_offsets(
             _end_joint,
-            "{0}_iKCurveEnd".format(self.prefix["middle"]))
+            "{0}_iKCurveEnd".format(self.m))
 
         kwargs = {
             'name': '{0}_ikCurve_{1}'.format(
-                self.prefix["middle"],
+                self.m,
                 self.nom["skinCluster"]
             ),
 
@@ -171,6 +204,8 @@ class Spine(rigOps.RigOps):
             'normalizeWeights': 1
         }
 
-        pm.bindSkin([_start_joint, _mid_joint, _end_joint], _ik_curve)
+        pm.skinCluster(
+            [_start_joint, _mid_joint, _end_joint],
+            _ik_curve, **kwargs)
 
      #   .   .   .   .   .   .   .   .   .   .
