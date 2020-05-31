@@ -1,4 +1,3 @@
-import mightyRig.structure.biped as bipedStructure
 import pymel.core as pm
 import mightyRig.maya.styles as style
 import mightyRig.maya.wireCurve as wireCurve
@@ -6,22 +5,6 @@ import mightyRig.maya.graphOps as graphOps
 import mightyRig.maya.shader as shader
 
 # ================================================================
-
-# code for testing the graph inside maya, this should be refactoredgit
-
-
-def create_graph(
-        spine=3,
-        neck=3,
-        length=4
-):
-    return bipedStructure.create(
-        spine=spine,
-        neck=neck,
-        length=length)
-
-
-# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
 def insert_data_nodes(vertex):
@@ -126,7 +109,7 @@ def bind_skin(graph, guides):
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-def create_guide(graph=None):
+def setup(graph=None):
     nodes = graph.depth_first("pelvis")
     root_group = pm.group(
         name="Mighty_Guide_GRP",

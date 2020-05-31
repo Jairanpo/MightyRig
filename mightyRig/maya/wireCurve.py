@@ -1,4 +1,4 @@
-import mightyRig.guides.styles as style
+import mightyRig.maya.styles as style
 import pymel.core as pm
 
 

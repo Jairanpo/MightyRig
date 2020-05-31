@@ -87,6 +87,8 @@ class Spine(rigOps.RigOps):
             "{0}_pelvis".format(self.m)
         )
 
+        self.spine_ik()
+
     # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
     def orient_joints(self):
@@ -161,9 +163,11 @@ class Spine(rigOps.RigOps):
             _ik_curve \
             .getPointAtParam(_ik_curve.length()/2)
 
+        truncated_length = float("{0:.4f}".format(_ik_curve.length()))
+
         _end_pos = \
             _ik_curve\
-            .getPointAtParam(_ik_curve.length())
+            .getPointAtParam(truncated_length)
 
         _start_joint = pm.joint(
             name="{0}_iKCurve{1}_{2}".format(

@@ -7,8 +7,8 @@ def Spine_Create():
     # Create spine joints
     # Orient joints
     # Create Ik Spline
-    # TODO: Align controllers to last spine joint before getting to the chest
     # Offset nodes for spine_01
+    # TODO: Align controllers to last spine joint before getting to the chest
 
     # Pelvis:
     # Get graph position for the pelvis.
@@ -46,11 +46,12 @@ def Spine_Create():
     # TODO: Create a joint and offset aligned to the chest joint.
     # TODO: Constraint the joint to a controller
 
-    #Herarchy_Spine#
-    Parent_Ctrl_Spine_Mid_Ctrl_Spine_Mid2 = cmds.parent(
-        "P_M_SpineFK_01_CTL", "M_SpineFK_00_CTL")
-    Parent_Ctrl_Spine_Fk_2_Ctrl_Chest = cmds.parent(
-        "P_M_Chest_CTL", "M_SpineFK_01_CTL")
+    # Herarchy spine
+    # TODO: We will have three FK controller groups for the 
+    #       spine. parent them like this:
+    #        
+    cmds.parent("P_M_SpineFK_01_CTL", "M_SpineFK_00_CTL")
+    cmds.parent("P_M_Chest_CTL", "M_SpineFK_01_CTL")
 
     #Squash_Stretch#
     # TODO: Get the arclen of the spine iKCurve or use the "length" method of a NurbsCurve instance.

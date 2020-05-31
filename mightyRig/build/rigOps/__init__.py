@@ -14,7 +14,8 @@ class RigOps(object):
             "ikHandle": "IKH",
             "ikEffector": "IKE",
             "ikCurve": "IKC",
-            "skinCluster": "SKN"
+            "skinCluster": "SKN",
+            "multiplyDivide": "MDN"
         }
         self.prefix = {
             "middle": "M",
