@@ -1,13 +1,13 @@
 # Maya imports
-import mightyRig.build.rigOps as rigOps
+import mightyRig.build.rigOps.ops as ops
 import pymel.core as pm
 
 # ================================================================
 
-reload(rigOps)
+reload(ops)
 
 
-class Spine(rigOps.RigOps):
+class Spine(ops.Ops):
     def __init__(self, graph, pelvis="pelvis", label="spine"):
         super(Spine, self).__init__()
         self._graph = graph

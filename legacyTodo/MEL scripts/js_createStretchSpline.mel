@@ -31,7 +31,7 @@ global proc js_createStretchSpline (
 	// based on the given curve, tell the joints to stretch
 
 	// create a curveInfo node
-	$node = `arclen -ch 1 $curveObj`;
+	$infoNode = `arclen -ch 1 $curveObj`;
 
 	// get the ikhandle
 	string $con[0];
@@ -52,8 +52,8 @@ global proc js_createStretchSpline (
     $stretchAxis = `js_getStretchAxis $joints[1]`;
 
 	// create a normalizedScale attr on the curveInfo node
-	addAttr -ln "normalizedScale" -at "double" $node;
-	$length = `getAttr ($node + ".arcLength")`;
+	addAttr -ln "normalizedScale" -at "double" $infoNode;
+	$length = `getAttr ($infoNode + ".arcLength")`;
 
 
     //  create a NormalizedScale node to connect to everything.
@@ -63,10 +63,10 @@ global proc js_createStretchSpline (
     // set the multiplyDivide node to division
     setAttr ($multDivide +".operation") 2;
 
-    connectAttr ($node + ".arcLength") ($multDivide + ".input1X");
+    connectAttr ($infoNode + ".arcLength") ($multDivide + ".input1X");
     setAttr ($multDivide + ".input2X") $length;
 
-    connectAttr ($multDivide + ".outputX") ($node + ".normalizedScale");
+    connectAttr ($multDivide + ".outputX") ($infoNode + ".normalizedScale");
    
     // if worldscale is off, and volume deformation is off, we can just connect directly to the joints
     if (($worldScale == 0) && ($volume == 0))
@@ -74,7 +74,7 @@ global proc js_createStretchSpline (
         for ($joint in $joints)
         {
             print ("connecting to " + $joint + "." + $stretchAxis[0] + "\n");
-            connectAttr -f ($node + ".normalizedScale") ($joint + "." + $stretchAxis[0]);
+            connectAttr -f ($infoNode + ".normalizedScale") ($joint + "." + $stretchAxis[0]);
         }
     }
     else
@@ -86,7 +86,7 @@ global proc js_createStretchSpline (
             // create a multiplyDivide node
             $md2 = `createNode multiplyDivide -n ($curveObj + "_worldScale")`;
             setAttr ($md2 + ".operation") 2;
-            connectAttr ($node + ".normalizedScale") ($md2 + ".input1X");
+            connectAttr ($infoNode + ".normalizedScale") ($md2 + ".input1X");
             connectAttr ($worldScaleObj + "." + $worldScaleAttr) ($md2 + ".input2X");
             for ($joint in $joints)
             {
@@ -105,9 +105,9 @@ global proc js_createStretchSpline (
 
             // for each joint, connect the scaleX to the normalizedScale
             if ($worldScale)
-                $expr += ("$scale = " + $node + ".normalizedScale/"+$worldScaleObj+"."+$worldScaleAttr+";\n");
+                $expr += ("$scale = " + $infoNode + ".normalizedScale/"+$worldScaleObj+"."+$worldScaleAttr+";\n");
             else
-                $expr += ("$scale = " + $node + ".normalizedScale;\n");
+                $expr += ("$scale = " + $infoNode + ".normalizedScale;\n");
 
             $expr += ("$sqrt = 1/sqrt($scale);\n");
 
@@ -126,3 +126,100 @@ global proc js_createStretchSpline (
     }
     select $curveObj;
 }
+
+
+# ================================================================
+
+"""
+ikCurve: iKCurve node
+preserveVolume: bool
+worldScale: bool
+worldScaleObject: the object that will be used for world scale
+worldScaleAttr: The attribute to be used for world scale
+
+req:  getStretchAxis.py
+      createCurveControl.py
+"""
+# ================================================================
+
+"""
+- Create a curveInfo node with the arclen method and
+  the constructionHistory flag in order to create a node
+  out of it. This node will contain the information about
+  our spine curve, including the arclen.
+
+- Get the shape of the ikCurve
+
+- Get the ik handle
+
+- Get the joints of the ikHandle with iKHandke.getJointList()
+  foo = ikHandleNode.getJointList()
+
+- Add a normalizedScale attribute to the curveInfo node
+  as a double data type:
+  curveInfo.addAttr("normalizedScale", attributeType="double")
+
+- Get the stretch axis (primaryAxis), this is the axis at which the
+  joint chain is pointing to, we can't do this with the first
+  joint, because its local translation will depend on the
+  world or containing group, but we can use any of the following joints by
+  getting its translation values, and which ever is the larges value, then
+  this is the main axis our joint chain is traveling through in our
+  virtual space. We must return an ordered list with the largest
+  axis first and then the other two.
+
+- Create a miltiplyDivide node and name it as "{prefix}_iKCurveNormalizedScale_{type}".
+  Set this node attribute operation as "divide".
+
+- Connect the curveInfoNode.arcLength attribute to the "multiplyDivide.input1X"
+- Get the original arcLength of the curve and set it as "multiplyDivide.input2X" value.
+- Connect the multiplyDivide.outputX to the curveInfoNode.normalizedScale.
+
+- User set worldScale and preserveVolume to false:
+- Connect the curveInfoNode.normalizedScale to each joint primary axis
+  or stretch axis using the force attribute.
+
+- User set worldScale to true and preserveVolume to false:
+- Create multiplyDivide node and set its operation to divide
+- Connect the "curveInfoNode.normalizedScale" to the "multiplyDivide.input1X"
+- Connect the "worldScaleObject.woldScaleAttr" to the "multiplyDivide.input2x"
+- Connect the multiplyDivide.outputX to each of the joints primary axis using
+  the force flag attribute.
+
+- User set worldScale to true and preserveVolume to true:
+- Select the joints from the ikHandle.getJointList()
+
+"""
+
+
+# ================================================================
+"""
+Animation control curve
+diver: {
+    node: controller node,
+    attr: attribute that will control
+}
+driven:{
+    nodes: list of nodes to be driven,
+    attr: attribute to be diven
+}
+
+- System validate driver node.
+- System add driver attribute in case it doesn't exist.
+
+- System set a keyframe at driver attribute were time=1 and value 0
+- System get the amount of diven nodes
+- System set a keyframe at driver attribute were time=amount_of_driven_nodes and value=0
+- System set tangent to weighted for driver attribute
+- System set weightLock to false for driver attribute
+- System edit absolute outAngle=50 were time=1 on driver attribute
+- System edit absolute inAngle=50 where time=amount_of_driven_nodes on driver attribute
+- System goes through each enumerated driven node. 
+    create and rename frameCache node. 
+    then connect driver attribute to frameCache.stream.
+    then set frameCache.varyTime=current_index_value + 1.  
+    then add destination attribute if it doesn't exists.
+    then set destination attribute keyable=True
+    then connect frameCache.varying to current driven node attribute
+"""
+# ================================================================
